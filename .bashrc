@@ -35,9 +35,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='[\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ '
+    PS1='\[\033[37m\][\[\033[32m\]\u\[\033[00m\]\[\033[37m\]@\[\033[33m\]\H \[\033[1;34m\]\W\[\033[00m\]\[\033[37m\]]\$ '
 else
-    PS1='[\u:\W\]$'
+    PS1='[\u@\h \W\]$'
 fi
 unset color_prompt force_color_prompt
 
