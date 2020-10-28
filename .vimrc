@@ -28,9 +28,14 @@ set updatetime=50
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-" if (&term =~ '^xterm' && &t_Co == 256)
+if (&term =~ '^xterm' && &t_Co == 256)
       set t_ut= | set ttyscroll=1
-" endif
+endif
+
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 call plug#begin('~/.vim/plugged')
 
