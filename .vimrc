@@ -28,9 +28,9 @@ set updatetime=50
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-if (&term =~ '^xterm' && &t_Co == 256)
+" if (&term =~ '^xterm' && &t_Co == 256)
       set t_ut= | set ttyscroll=1
-endif
+" endif
 
 call plug#begin('~/.vim/plugged')
 
