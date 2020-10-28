@@ -99,4 +99,4 @@ bind 'set bell-style none'
 bind 'set completion-ignore-case on'
 
 #bare git repo alias for dotfiles
-alias config='/usr/bin/git --git-dir=/home/alex/dotfiles --work-tree=/home/alex'
+alias config='/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME'
