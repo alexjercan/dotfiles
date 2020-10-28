@@ -6,11 +6,13 @@ import System.Exit
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
+import XMonad.Util.SpawnOnce
+
 myTerminal :: String
 myTerminal = "alacritty"
 
 -- Width of the window border in pixels.
-myBorderWidth :: Integer
+myBorderWidth :: Dimension
 myBorderWidth = 2
 
 -- Sets modkey to super/windows key
@@ -120,11 +122,11 @@ defaults = def {
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
 
-      -- key bindings
+        -- key bindings
         keys               = myKeys,
         mouseBindings      = myMouseBindings,
 
-      -- hooks, layouts
+        -- hooks, layouts
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,

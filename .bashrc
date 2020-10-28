@@ -1,6 +1,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export TERM="xterm-256color"
+
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 
@@ -22,7 +24,7 @@ HISTFILESIZE=2000
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;
+    xterm*|alacritty) color_prompt=yes;
 esac
 
 force_color_prompt=yes
