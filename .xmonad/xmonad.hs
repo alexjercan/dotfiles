@@ -110,9 +110,14 @@ myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "picom &"
 
+-- Command to launch the bar.
+myBar = "xmobar"
+
+-- Custom PP, configure it as you like. It determines what is being written to the bar.
+myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
 
 main :: IO()
-main = xmonad defaults
+main = xmonad =<< statusBar myBar myPP defaults
 
 defaults = def {
         terminal           = myTerminal,
