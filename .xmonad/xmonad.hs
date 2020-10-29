@@ -2,6 +2,8 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import Graphics.X11.ExtraTypes.XF86
+import XMonad.Hooks.DynamicLog
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -116,8 +118,10 @@ myBar = "xmobar"
 -- Custom PP, configure it as you like. It determines what is being written to the bar.
 myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
 
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+
 main :: IO()
-main = xmonad =<< statusBar myBar myPP defaults
+main = xmonad =<< statusBar myBar myPP toggleStrutsKey defaults
 
 defaults = def {
         terminal           = myTerminal,
