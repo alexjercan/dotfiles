@@ -7,7 +7,7 @@ Config
     -- layout
     sepChar = "%",
     alignSep = "}{",
-    template = "<action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action><fc=#666666> | %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %date% || %kbd% ",
+    template = "<action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action><fc=#666666> |</fc> %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %date% || %kbd% ",
     -- general behavior
     lowerOnStart = True,
     hideOnStart = False,
