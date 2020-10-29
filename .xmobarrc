@@ -16,14 +16,14 @@ Config
     iconRoot = "/home/alex/.xmonad/xpm/",
     commands =
       [
-        Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+        Run DynNetwork     [ "--template" , "<fc=#666666><dev>: <tx>kB/s|<rx>kB/s</fc>"
                              , "--Low"      , "1000"       -- units: B/s
                              , "--High"     , "5000"       -- units: B/s
                              , "--low"      , "darkgreen"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run MultiCpu       [ "--template" , "cpu: <total>%"
+        , Run MultiCpu       [ "--template" , "<fc=#666666>cpu:</fc> <total>%"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
                              , "--low"      , "darkgreen"
@@ -37,7 +37,7 @@ Config
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run Battery        [ "--template" , "Batt: <acstatus>"
+        , Run Battery        [ "--template" , "<fc=#666666>battery:</fc> <acstatus>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "darkred"
