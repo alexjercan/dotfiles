@@ -23,14 +23,14 @@ Config
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run MultiCpu       [ "--template" , "<fc=#666666>cpu: <total>%</fc>"
+        , Run MultiCpu       [ "--template" , "<fc=#666666><icon=cpu_20.xpm/> <total>%</fc>"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
                              , "--low"      , "darkgreen"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run Memory         [ "--template" ,"<fc=#666666>mem: <used>M (<usedratio>%)</fc>"
+        , Run Memory         [ "--template" ,"<fc=#666666><icon=memory-icon_20.xpm/> <used>M (<usedratio>%)</fc>"
                              , "--Low"      , "20"        -- units: %
                              , "--High"     , "90"        -- units: %
                              , "--low"      , "darkgreen"
@@ -51,7 +51,7 @@ Config
                                        -- charged status
                                        , "-i"	, "<fc=#006000>Charged</fc>"
                              ] 50
-        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+        , Run Date           "<icon=calendar-clock-icon_20.xpm/> <fc=#ABABAB>%F (%a) %T</fc>" "date" 10
         , Run Kbd            [("us"         , "<fc=#666666>US</fc>")]
         ]
    }
