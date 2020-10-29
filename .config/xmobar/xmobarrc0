@@ -4,10 +4,6 @@ Config
     bgColor = "#282c34",
     fgColor = "#ff6c6b",
     position = Static {xpos = 0, ypos = 0, width = 1920, height = 24},
-    -- layout
-    sepChar = "%",
-    alignSep = "}{",
-    template = "<icon=haskell_20.xpm/> <fc=#666666>|</fc> %UnsafeStdinReader% }{ %battery% <fc=#666666>|</fc> %multicpu% <fc=#666666>|</fc> %memory% <fc=#666666>|</fc> %dynnetwork% <fc=#666666>|</fc> %date% <fc=#666666>|</fc> %kbd% ",
     -- general behavior
     lowerOnStart = True,
     hideOnStart = False,
@@ -54,5 +50,9 @@ Config
         , Run Date           "<icon=calendar-clock-icon_20.xpm/> <fc=#ABABAB>%F (%a) %T</fc>" "date" 10
         , Run Kbd            [("us"         , "<fc=#666666>US</fc>")]
         , Run UnsafeStdinReader
-        ]
+        ],
+    -- layout
+    sepChar = "%",
+    alignSep = "}{",
+    template = "<icon=haskell_20.xpm/> <fc=#666666>|</fc> %UnsafeStdinReader% }{ %battery% <fc=#666666>|</fc> %multicpu% <fc=#666666>|</fc> %memory% <fc=#666666>|</fc> %dynnetwork% <fc=#666666>|</fc> %date% <fc=#666666>|</fc> %kbd% "
    }
