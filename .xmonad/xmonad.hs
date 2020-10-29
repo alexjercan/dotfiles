@@ -1,7 +1,7 @@
   -- Base
 import XMonad
 import System.IO (hPutStrLn)
-import System.Exit (exitSuccess)
+import System.Exit
 import qualified XMonad.StackSet as W
 
     -- Actions
@@ -455,7 +455,7 @@ myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
 
-myKeys :: [(String, X ())]
+myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm,               xK_p     ), spawn "dmenu_run")
