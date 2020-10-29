@@ -7,13 +7,13 @@ Config
     -- layout
     sepChar = "%",
     alignSep = "}{",
-    template = "%battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %date% || %kbd% ",
+    template = "<icon=haskell_20.xpm/> | %battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %date% || %kbd% ",
     -- general behavior
     lowerOnStart = True,
     hideOnStart = False,
     allDesktops = True,
     persistent = True,
-    iconRoot = "~/.xmonad/xpm/",
+    iconRoot = "/home/alex/.xmonad/xpm/",
     commands =
       -- weather monitor
       [ Run
