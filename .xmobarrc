@@ -23,21 +23,21 @@ Config
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run MultiCpu       [ "--template" , "<fc=#666666>cpu:</fc> <total>%"
+        , Run MultiCpu       [ "--template" , "<fc=#666666>cpu: <total>%</fc>"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
                              , "--low"      , "darkgreen"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run Memory         [ "--template" ,"mem: <used>M (<usedratio>%)"
+        , Run Memory         [ "--template" ,"<fc=#666666>mem: <used>M (<usedratio>%)</fc>"
                              , "--Low"      , "20"        -- units: %
                              , "--High"     , "90"        -- units: %
                              , "--low"      , "darkgreen"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run Battery        [ "--template" , "<fc=#666666>battery:</fc> <acstatus>"
+        , Run Battery        [ "--template" , "<fc=#666666>battery: <acstatus></fc>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "darkred"
@@ -52,6 +52,6 @@ Config
                                        , "-i"	, "<fc=#006000>Charged</fc>"
                              ] 50
         , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
-        , Run Kbd            [("us"         , "<fc=#8B0000>US</fc>")]
+        , Run Kbd            [("us"         , "<fc=#666666>US</fc>")]
         ]
    }
