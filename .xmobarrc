@@ -19,5 +19,5 @@ Config
       ],
     sepChar = "%",
     alignSep = "}{",
-    template = " <action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action> | %battery% | %cpu% | %memory% | %disku% }{ %uname% | %date%"
+    template = "%battery% | %cpu% | %memory% | %disku% }{ %uname% | %date%"
   }
