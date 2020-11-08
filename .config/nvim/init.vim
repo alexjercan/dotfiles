@@ -28,6 +28,7 @@ set updatetime=50
 set colorcolumn=80
 set shortmess+=c
 
+
 if (&term =~ '^xterm' && &t_Co == 256)
       set t_ut= | set ttyscroll=1
 endif
@@ -47,14 +48,10 @@ Plug 'neoclide/coc.nvim'
 
 call plug#end()
 
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
 set background=dark
-let g:gruvbox_contrast_dark = 'hard'
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-let g:gruvbox_invert_selection='0'
 highlight LineNr guifg=#5eacd3
 
 "vim polyglot settings
@@ -149,9 +146,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" coc-prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " My functions
 
