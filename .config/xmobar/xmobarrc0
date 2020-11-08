@@ -9,7 +9,7 @@ Config
     hideOnStart = False,
     allDesktops = True,
     persistent = True,
-    iconRoot = "/home/alex/.xmonad/xpm/",
+    iconRoot = "/home/alex/.config/xmobar/xpm/",
     commands =
       [
         Run DynNetwork     [ "--template" , "<fc=#666666><dev>: <tx>kB/s|<rx>kB/s</fc>"
