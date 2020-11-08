@@ -26,7 +26,6 @@ set signcolumn=yes
 set cmdheight=2
 set updatetime=50
 set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 if (&term =~ '^xterm' && &t_Co == 256)
       set t_ut= | set ttyscroll=1
@@ -39,14 +38,22 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'mhartington/oceanic-next'
+Plug 'gruvbox-community/gruvbox'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
-colorscheme OceanicNext
+colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_dark = 'hard'
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+let g:gruvbox_invert_selection='0'
+highlight LineNr guifg=#5eacd3
 
 "vim polyglot settings
 let g:go_highlight_build_constraints = 1
