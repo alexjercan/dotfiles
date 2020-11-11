@@ -1,0 +1,9 @@
+cabal-version: >=1.8	
+name: alex-xmonad
+version: 1
+build-type: Simple
+
+executable xmonad
+  main-is: Main.hs
+  build-depends: base, xmonad, xmonad-contrib, xmonad-extras
+  ghc-options: -Wall -Werror -fno-warn-missing-signatures
