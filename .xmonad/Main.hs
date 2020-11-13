@@ -1,62 +1,72 @@
   -- Base
-import XMonad
-import System.IO (hPutStrLn)
-import System.Exit
-import qualified XMonad.StackSet as W
+import           System.Exit
+import           System.IO                           (hPutStrLn)
+import           XMonad
+import qualified XMonad.StackSet                     as W
 
     -- Actions
-import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..))
-import XMonad.Actions.MouseResize
-import XMonad.Actions.Promote
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
-import qualified XMonad.Actions.TreeSelect as TS
-import XMonad.Actions.WithAll (sinkAll, killAll)
-import qualified XMonad.Actions.Search as S
+import           XMonad.Actions.CopyWindow           (kill1, killAllOtherCopies)
+import           XMonad.Actions.CycleWS              (WSType (..), moveTo,
+                                                      shiftTo)
+import           XMonad.Actions.MouseResize
+import           XMonad.Actions.Promote
+import           XMonad.Actions.RotSlaves            (rotAllDown, rotSlavesDown)
+import qualified XMonad.Actions.Search               as S
+import qualified XMonad.Actions.TreeSelect           as TS
+import           XMonad.Actions.WithAll              (killAll, sinkAll)
 
     -- Data
-import Data.Monoid
-import Data.Tree
-import qualified Data.Map as M
+import qualified Data.Map                            as M
+import           Data.Monoid
+import           Data.Tree
 
     -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
-import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
-import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
-import XMonad.Hooks.ServerMode
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.WorkspaceHistory
+import           XMonad.Hooks.DynamicLog             (PP (..), dynamicLogWithPP,
+                                                      shorten, wrap,
+                                                      xmobarColor, xmobarPP)
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.FadeInactive
+import           XMonad.Hooks.ManageDocks            (ToggleStruts (..),
+                                                      avoidStruts,
+                                                      docksEventHook,
+                                                      manageDocks)
+import           XMonad.Hooks.ManageHelpers          (doFullFloat, isFullscreen)
+import           XMonad.Hooks.ServerMode
+import           XMonad.Hooks.SetWMName
+import           XMonad.Hooks.WorkspaceHistory
 
     -- Layouts
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.ResizableTile
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.SimplestFloat
 
     -- Layouts modifiers
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
-import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, NOBORDERS))
-import XMonad.Layout.Renamed (renamed, Rename(Replace))
-import XMonad.Layout.Spacing
-import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
-import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import           XMonad.Layout.LayoutModifier
+import           XMonad.Layout.LimitWindows          (decreaseLimit,
+                                                      increaseLimit,
+                                                      limitWindows)
+import           XMonad.Layout.MultiToggle           (EOT (EOT), mkToggle, (??))
+import qualified XMonad.Layout.MultiToggle           as MT (Toggle (..))
+import           XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, NOBORDERS))
+import           XMonad.Layout.Renamed               (Rename (Replace), renamed)
+import           XMonad.Layout.Spacing
+import qualified XMonad.Layout.ToggleLayouts         as T (ToggleLayout (Toggle),
+                                                           toggleLayouts)
+import           XMonad.Layout.WindowArranger        (WindowArrangerMsg (..),
+                                                      windowArrange)
 
     -- Prompt
-import XMonad.Prompt
-import XMonad.Prompt.FuzzyMatch
-import XMonad.Prompt.Man
-import XMonad.Prompt.Shell (shellPrompt)
-import XMonad.Prompt.Ssh
-import XMonad.Prompt.XMonad
-import Control.Arrow (first)
+import           Control.Arrow                       (first)
+import           XMonad.Prompt
+import           XMonad.Prompt.FuzzyMatch
+import           XMonad.Prompt.Man
+import           XMonad.Prompt.Shell                 (shellPrompt)
+import           XMonad.Prompt.Ssh
+import           XMonad.Prompt.XMonad
 
    -- Utilities
-import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Run (spawnPipe)
-import XMonad.Util.SpawnOnce
+import           XMonad.Util.EZConfig                (additionalKeysP)
+import           XMonad.Util.Run                     (spawnPipe)
+import           XMonad.Util.SpawnOnce
 
 myShell :: String
 myShell = "bash"
@@ -89,6 +99,8 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "picom &"
+          spawnOnce "volumeicon &"
+          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
           setWMName "LG3D"
 
 treeselectAction :: TS.TSConfig (X ()) -> X ()
@@ -370,7 +382,7 @@ main = do
     xmproc0 <- spawnPipe "xmobar -x 0 /home/alex/.config/xmobar/xmobarrc0"
     xmonad $ ewmh def
         { manageHook = myManageHook <+> manageDocks
-       , handleEventHook    = serverModeEventHookCmd
+        , handleEventHook    = serverModeEventHookCmd
                                <+> serverModeEventHook
                                <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
                                <+> docksEventHook

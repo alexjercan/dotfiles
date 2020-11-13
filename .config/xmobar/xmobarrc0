@@ -11,8 +11,7 @@ Config
     persistent = True,
     iconRoot = "/home/alex/.config/xmobar/xpm/",
     commands =
-      [
-        Run DynNetwork     [ "--template" , "<fc=#666666><dev>: <tx>kB/s|<rx>kB/s</fc>"
+        [ Run DynNetwork     [ "--template" , "<fc=#666666><icon=net_up_20.xpm/><tx>kB/s|<icon=net_down_20.xpm/><rx>kB/s</fc>"
                              , "--Low"      , "1000"       -- units: B/s
                              , "--High"     , "5000"       -- units: B/s
                              , "--low"      , "darkgreen"
@@ -26,33 +25,21 @@ Config
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run Memory         [ "--template" ,"<fc=#666666><icon=memory-icon_20.xpm/> <used>M (<usedratio>%)</fc>"
-                             , "--Low"      , "20"        -- units: %
-                             , "--High"     , "90"        -- units: %
+        , Run Memory         [ "--template" ,"<fc=#666666><icon=memory-icon_20.xpm/> <used>M</fc>"
+                             , "--Low"      , "1000"
+                             , "--High"     , "3000"
                              , "--low"      , "darkgreen"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
-        , Run Battery        [ "--template" , "<fc=#666666>battery: <acstatus></fc>"
-                             , "--Low"      , "10"        -- units: %
-                             , "--High"     , "80"        -- units: %
-                             , "--low"      , "darkred"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkgreen"
-                             , "--" -- battery specific options
-                                       -- discharging status
-                                       , "-o"	, "<left>% (<timeleft>)"
-                                       -- AC "on" status
-                                       , "-O"	, "<fc=#dAA520>Charging</fc>"
-                                       -- charged status
-                                       , "-i"	, "<fc=#006000>Charged</fc>"
-                             ] 50
-        , Run Date           "<icon=calendar-clock-icon_20.xpm/> <fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
         , Run Kbd            [("us"         , "<fc=#666666>US</fc>")]
+        , Run Com "/home/alex/.local/bin/pacupdate" [] "pacupdate" 36000
+        , Run Com "/home/alex/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 10
         , Run UnsafeStdinReader
         ],
     -- layout
     sepChar = "%",
     alignSep = "}{",
-    template = "<action=`xdotool key super+t`><icon=haskell_20.xpm/></action> <fc=#666666>|</fc>  <fc=#666666> %UnsafeStdinReader% </fc>  }{ %battery% <fc=#666666>|</fc> %multicpu% <fc=#666666>|</fc> %memory% <fc=#666666>|</fc> %dynnetwork% <fc=#666666>|</fc> %date% <fc=#666666>|</fc> %kbd% <fc=#666666>|</fc> <action=`systemctl poweroff`>Shutdown</action>"
+    template = "<action=`xdotool key super+t`><icon=haskell_20.xpm/></action> <fc=#666666>|</fc> <fc=#666666>%UnsafeStdinReader%</fc> }{ <fc=#666666>%pacupdate% |</fc> %multicpu% <fc=#666666>|</fc> %memory% <fc=#666666>|</fc> %dynnetwork% <fc=#666666>|</fc> %date% <fc=#666666>|</fc> %kbd% <fc=#666666>|</fc> %trayerpad%"
    }

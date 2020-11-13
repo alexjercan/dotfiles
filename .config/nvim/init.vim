@@ -127,6 +127,9 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -143,14 +146,7 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" coc-prettier
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 " My functions
-
 fun! TrimWhitespace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
@@ -159,9 +155,8 @@ endfun
 
 augroup ALEX
     autocmd!
+    autocmd FileType typescript,json setl formatprg=prettier
+    autocmd FileType haskell setl formatprg=stylish-haskell
     autocmd BufWritePre * :call TrimWhitespace()
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder.
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
