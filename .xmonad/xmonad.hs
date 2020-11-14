@@ -30,6 +30,7 @@ import           XMonad.Hooks.ManageDocks            (ToggleStruts (..),
                                                       avoidStruts,
                                                       docksEventHook,
                                                       manageDocks)
+import           XMonad.Hooks.ManageHelpers          (doFullFloat, isFullscreen)
 import           XMonad.Hooks.ServerMode
 import           XMonad.Hooks.WorkspaceHistory
 
@@ -380,9 +381,10 @@ myKeys =
 main :: IO ()
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 /home/alex/.config/xmobar/xmobarrc0"
-    xmonad $ ewmh def
-        { manageHook = myManageHook <+> manageDocks
-        , handleEventHook    = serverModeEventHookCmd
+    xmonad $ def
+        { manageHook = (isFullscreen --> doFullFloat) <+>  myManageHook <+> manageDocks
+        , handleEventHook    = fullscreenEventHook
+                               <+> serverModeEventHookCmd
                                <+> serverModeEventHook
                                <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
                                <+> docksEventHook
