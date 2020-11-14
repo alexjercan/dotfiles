@@ -30,9 +30,7 @@ import           XMonad.Hooks.ManageDocks            (ToggleStruts (..),
                                                       avoidStruts,
                                                       docksEventHook,
                                                       manageDocks)
-import           XMonad.Hooks.ManageHelpers          (doFullFloat, isFullscreen)
 import           XMonad.Hooks.ServerMode
-import           XMonad.Hooks.SetWMName
 import           XMonad.Hooks.WorkspaceHistory
 
     -- Layouts
@@ -99,9 +97,10 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "picom &"
+          spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-          setWMName "LG3D"
+          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
+
 
 treeselectAction :: TS.TSConfig (X ()) -> X ()
 treeselectAction a = TS.treeselectAction a
@@ -133,6 +132,7 @@ treeselectAction a = TS.treeselectAction a
        [ Node (TS.TSNode "Recompile" "Recompile XMonad" (spawn "xmonad --recompile")) []
        , Node (TS.TSNode "Restart" "Restart XMonad" (spawn "xmonad --restart")) []
        , Node (TS.TSNode "Quit" "Restart XMonad" (io exitSuccess)) []
+       , Node (TS.TSNode "Shutdown" "Shutdown" (spawn "shutdown now")) []
        ]
    ]
 
