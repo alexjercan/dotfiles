@@ -153,9 +153,10 @@ fun! TrimWhitespace()
     call winrestview(l:save)
 endfun
 
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 augroup ALEX
     autocmd!
-    autocmd FileType typescript,json setl formatprg=prettier
     autocmd FileType haskell setl formatprg=stylish-haskell
     autocmd BufWritePre * :call TrimWhitespace()
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
