@@ -83,9 +83,8 @@ vnoremap <leader>p "_dP
 " nvim-lsp settings
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
-lua require'lspconfig'.clangd.setup{ }
-" on_attach=require'completion'.on_attach }
-lua require'lspconfig'.hls.setup{ }
+lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.hls.setup{ on_attach=require'completion'.on_attach }
 
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
@@ -111,6 +110,5 @@ endfun
 augroup ALEX
     autocmd!
     autocmd FileType haskell setl formatprg=stylish-haskell
-    autocmd BufEnter * lua require'completion'.on_attach()
     autocmd BufWritePre * :call TrimWhitespace()
 augroup END
