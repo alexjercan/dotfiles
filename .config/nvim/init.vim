@@ -39,15 +39,16 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'tjdevries/nlua.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
-Plug '9mm/vim-closer'
 
 Plug 'gruvbox-community/gruvbox'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
 
+Plug 'theprimeagen/vim-be-good'
 call plug#end()
 
+set background=dark
 let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -55,7 +56,6 @@ if exists('+termguicolors')
 endif
 let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
-set background=dark
 highlight LineNr guifg=#5eacd3
 
 "shortcut keys
