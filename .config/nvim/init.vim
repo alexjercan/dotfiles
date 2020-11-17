@@ -81,12 +81,11 @@ nnoremap <leader>u :UndotreeShow<CR>
 vnoremap <leader>p "_dP
 
 " nvim-lsp settings
-let g:diagnostic_virtual_text_prfix = '*'
-let g:diagnostic_enable_virtual_text = 1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
-lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
-lua require'lspconfig'.hls.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.clangd.setup{ }
+" on_attach=require'completion'.on_attach }
+lua require'lspconfig'.hls.setup{ }
 
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
@@ -99,6 +98,9 @@ nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 command! Format execute 'lua vim.lsp.buf.formatting()'
 
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 " My functions
 fun! TrimWhitespace()
     let l:save = winsaveview()
@@ -109,5 +111,6 @@ endfun
 augroup ALEX
     autocmd!
     autocmd FileType haskell setl formatprg=stylish-haskell
+    autocmd BufEnter * lua require'completion'.on_attach()
     autocmd BufWritePre * :call TrimWhitespace()
 augroup END
