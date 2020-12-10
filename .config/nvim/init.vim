@@ -40,6 +40,8 @@ Plug 'nvim-lua/diagnostic-nvim'
 Plug 'tjdevries/nlua.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 
+Plug 'nvim-lua/lsp-status.nvim'
+
 Plug 'gruvbox-community/gruvbox'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
@@ -85,6 +87,9 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
 lua require'lspconfig'.hls.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.jedi_language_server.setup{ on_attach=require'completion'.on_attach }
+
+lua require'lsp-status'.register_progress()
 
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
