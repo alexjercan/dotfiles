@@ -35,6 +35,7 @@ import           XMonad.Hooks.ServerMode
 import           XMonad.Hooks.WorkspaceHistory
 
     -- Layouts
+import           XMonad.Layout.GridVariants (Grid(Grid))
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.SimplestFloat
 
@@ -101,80 +102,6 @@ myStartupHook = do
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-
-treeselectAction :: TS.TSConfig (X ()) -> X ()
-treeselectAction a = TS.treeselectAction a
-   [ Node (TS.TSNode "+ Accessories" "Accessory applications" (return ()))
-       [ Node (TS.TSNode "Picom Toggle on/off" "Compositor for window managers" (spawn "killall picom; picom")) []
-       , Node (TS.TSNode "Nitrogen" "Wallpaper viewer and setter" (spawn "nitrogen")) []
-       , Node (TS.TSNode "PCManFM-QT" "File manager" (spawn "pcmanfm-qt")) []
-       ]
-   , Node (TS.TSNode "+ Games" "fun and games" (return ()))
-       []
-   , Node (TS.TSNode "+ Graphics" "graphics programs" (return ()))
-       []
-   , Node (TS.TSNode "+ Internet" "internet and web programs" (return ()))
-       [ Node (TS.TSNode "Firefox" "Open source web browser" (spawn "firefox")) []
-       ]
-   , Node (TS.TSNode "+ Multimedia" "sound and video applications" (return ()))
-       []
-   , Node (TS.TSNode "+ Office" "office applications" (return ()))
-       []
-   , Node (TS.TSNode "+ Programming" "programming and scripting tools" (return ()))
-       [ Node (TS.TSNode "Code" "VS Code" (spawn "code")) []
-       ]
-   , Node (TS.TSNode "+ System" "system tools and utilities" (return ()))
-       [ Node (TS.TSNode "Alacritty" "GPU accelerated terminal" (spawn "alacritty")) []
-       , Node (TS.TSNode "Htop" "Terminal process viewer" (spawn (myTerminal ++ " -e htop"))) []
-       ]
-   , Node (TS.TSNode "+ XMonad" "window manager commands" (return ()))
-       [ Node (TS.TSNode "Recompile" "Recompile XMonad" (spawn "xmonad --recompile")) []
-       , Node (TS.TSNode "Restart" "Restart XMonad" (spawn "xmonad --restart")) []
-       , Node (TS.TSNode "Quit" "Restart XMonad" (io exitSuccess)) []
-       , Node (TS.TSNode "Shutdown" "Shutdown" (spawn "shutdown now")) []
-       ]
-   ]
-
-tsDefaultConfig :: TS.TSConfig a
-tsDefaultConfig = TS.TSConfig { TS.ts_hidechildren = True
-                              , TS.ts_background   = 0xdd282c34
-                              , TS.ts_font         = myFont
-                              , TS.ts_node         = (0xffd0d0d0, 0xff1c1f24)
-                              , TS.ts_nodealt      = (0xffd0d0d0, 0xff282c34)
-                              , TS.ts_highlight    = (0xffffffff, 0xff755999)
-                              , TS.ts_extra        = 0xffd0d0d0
-                              , TS.ts_node_width   = 200
-                              , TS.ts_node_height  = 20
-                              , TS.ts_originX      = 5
-                              , TS.ts_originY      = 15
-                              , TS.ts_indent       = 80
-                              , TS.ts_navigate     = myTreeNavigation
-                              }
-
-myTreeNavigation = M.fromList
-    [ ((0, xK_Escape),   TS.cancel)
-    , ((0, xK_Return),   TS.select)
-    , ((0, xK_space),    TS.select)
-    , ((0, xK_Up),       TS.movePrev)
-    , ((0, xK_Down),     TS.moveNext)
-    , ((0, xK_Left),     TS.moveParent)
-    , ((0, xK_Right),    TS.moveChild)
-    , ((0, xK_k),        TS.movePrev)
-    , ((0, xK_j),        TS.moveNext)
-    , ((0, xK_h),        TS.moveParent)
-    , ((0, xK_l),        TS.moveChild)
-    , ((0, xK_o),        TS.moveHistBack)
-    , ((0, xK_i),        TS.moveHistForward)
-    , ((0, xK_a),        TS.moveTo ["+ Accessories"])
-    , ((0, xK_e),        TS.moveTo ["+ Games"])
-    , ((0, xK_g),        TS.moveTo ["+ Graphics"])
-    , ((0, xK_i),        TS.moveTo ["+ Internet"])
-    , ((0, xK_m),        TS.moveTo ["+ Multimedia"])
-    , ((0, xK_o),        TS.moveTo ["+ Office"])
-    , ((0, xK_p),        TS.moveTo ["+ Programming"])
-    , ((0, xK_s),        TS.moveTo ["+ System"])
-    , ((0, xK_x),        TS.moveTo ["+ XMonad"])
-    ]
 
 myXPConfig :: XPConfig
 myXPConfig = def
@@ -282,6 +209,10 @@ tall     = renamed [Replace "tall"]
            $ limitWindows 12
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
+grid     = renamed [Replace "grid"]
+           $ limitWindows 12
+           $ mySpacing 0
+           $ Grid (16/10)
 floats   = renamed [Replace "floats"]
            $ limitWindows 20 simplestFloat
 
@@ -289,7 +220,7 @@ floats   = renamed [Replace "floats"]
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
-                 myDefaultLayout = tall ||| floats
+                 myDefaultLayout = grid ||| tall ||| floats
 
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
@@ -337,9 +268,6 @@ myKeys =
         , ("M-f", sendMessage (T.Toggle "floats"))       -- Toggles my 'floats' layout
         , ("M-<Delete>", withFocused $ windows . W.sink) -- Push floating window back to tile
         , ("M-S-<Delete>", sinkAll)                      -- Push ALL floating windows to tile
-
-    -- Tree Select/
-        , ("M-t", treeselectAction tsDefaultConfig)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)     -- Move focus to the master window
